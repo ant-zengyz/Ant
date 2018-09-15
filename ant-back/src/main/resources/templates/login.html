@@ -1,0 +1,55 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="shortcut icon" th:href="@{favicon.ico}" type="image/x-icon" />
+    <link rel="stylesheet" th:href="@{assets/css/font.css}">
+    <link rel="stylesheet" th:href="@{assets/css/xadmin.css}">
+    <link rel="stylesheet" th:href="@{assets/lib/toast/css/toast.style.css}">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{assets/lib/layui/layui.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{assets/js/xadmin.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{assets/lib/toast/js/toast.script.js}" charset="utf-8"></script>
+    <title>后台登录-X-admin2.0</title>
+</head>
+<body class="login-bg">
+<div class="login layui-anim layui-anim-up">
+    <!--业务需要，隐藏域放置区-->
+    <input type="hidden" id="errormsg" th:value="${errormsg}">
+
+    <div class="message">x-admin2.0-管理登录</div>
+    <div id="darkbannerwrap"></div>
+    <form class="layui-form" action="/login.html" method="post" id="loginForm" >
+        <input name="username" placeholder="用户名" type="text" class="layui-input" lay-verify="username" value="admin">
+        <hr class="hr15">
+        <input name="password" placeholder="密码" type="password" class="layui-input" lay-verify="password" value="admin">
+        <hr class="hr15">
+        <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
+        <hr class="hr20" >
+    </form>
+</div>
+<script>
+    $(function  () {
+        var errormsg=$(" input[ id='errormsg' ] ").val();
+        if (errormsg!=""){
+            $.Toast("温馨提示", errormsg, "error", {
+                stack: true,has_icon:true,has_close_btn:true,fullscreen:false,
+                timeout:6000,sticky:false,has_progress:true,rtl:false
+            });
+        }
+        layui.use('form', function(){
+            var form = layui.form;
+            //表单验证
+            form.verify({
+                username:[/^[a-zA-Z0-9_-]{5,16}$/,'账号必须6到12位，且不能出现空格'],
+                password: [/^[\S]{5,16}$/,'密码必须6到12位，且不能出现空格']
+            });
+        });
+    })
+</script>
+</body>
+</html>

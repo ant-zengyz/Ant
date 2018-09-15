@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.ant.data.system.dao.SystemPermissionMapper">
+    <resultMap id="BaseResultMap" type="com.example.ant.data.system.entity.SystemPermission">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="is_type" jdbcType="VARCHAR" property="isType"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="is_code" jdbcType="VARCHAR" property="isCode"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="state" jdbcType="VARCHAR" property="state"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="VARCHAR" property="createUserId"/>
+        <result column="pid" jdbcType="VARCHAR" property="pid"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, is_type, name, is_code, address, state, icon, sort, create_time, create_user_id, 
+    pid
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_system_permission
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_system_permission
+    where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.example.ant.data.system.entity.SystemPermission">
+    insert into t_system_permission (id, is_type, name, 
+      is_code, address, state, 
+      icon, sort, create_time, 
+      create_user_id, pid)
+    values (#{id,jdbcType=VARCHAR}, #{isType,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{isCode,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{icon,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUserId,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.example.ant.data.system.entity.SystemPermission">
+        insert into t_system_permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="isType != null">
+                is_type,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="isCode != null">
+                is_code,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="icon != null">
+                icon,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="pid != null">
+                pid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="isType != null">
+                #{isType,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="isCode != null">
+                #{isCode,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="pid != null">
+                #{pid,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.ant.data.system.entity.SystemPermission">
+        update t_system_permission
+        <set>
+            <if test="isType != null">
+                is_type = #{isType,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="isCode != null">
+                is_code = #{isCode,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                icon = #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="pid != null">
+                pid = #{pid,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.ant.data.system.entity.SystemPermission">
+    update t_system_permission
+    set is_type = #{isType,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      is_code = #{isCode,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectListBySystemRoleId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_system_permission
+        where state='Y' and id in (select system_permission_id from t_system_role_permission where system_role_id='${systemRoleId}')
+    </select>
+
+    <select id="selectListByParams" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_system_permission
+        <where>
+            <if test="isType != null">
+                is_type = #{isType,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null">
+                and name = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="isCode != null">
+                and is_code = #{isCode,jdbcType=VARCHAR}
+            </if>
+            <if test="address != null">
+                and address = #{address,jdbcType=VARCHAR}
+            </if>
+            <if test="state != null">
+                and state = #{state,jdbcType=VARCHAR}
+            </if>
+            <if test="icon != null">
+                and icon = #{icon,jdbcType=VARCHAR}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort,jdbcType=INTEGER}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createUserId != null">
+                and create_user_id = #{createUserId,jdbcType=VARCHAR}
+            </if>
+            <if test="pid != null">
+                and pid = #{pid,jdbcType=VARCHAR}
+            </if>
+        </where>
+        order by sort asc
+    </select>
+</mapper>

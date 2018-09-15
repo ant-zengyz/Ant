@@ -1,0 +1,89 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="shortcut icon" th:href="@{../../favicon.ico}" type="image/x-icon"/>
+    <link rel="stylesheet" th:href="@{../../assets/css/font.css}">
+    <link rel="stylesheet" th:href="@{../../assets/css/xadmin.css}">
+    <link rel="stylesheet" th:href="@{../../assets/lib/toast/css/toast.style.css}">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{../../assets/lib/layui/layui.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{../../assets/js/xadmin.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{../../assets/lib/toast/js/toast.script.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{../../assets/lib/date/dateformat.js}" charset="utf-8"></script>
+
+    <link rel="stylesheet" th:href="@{../../assets/lib/zTree/v3/css/zTreeStyle/zTreeStyle.css}">
+    <script type="text/javascript" th:src="@{../../assets/lib/zTree/v3/js/jquery.ztree.core-3.5.js}"></script>
+    <script type="text/javascript" th:src="@{../../assets/lib/zTree/v3/js/jquery.ztree.excheck-3.5.js}"></script>
+    <title>管理员-X-admin2.0</title>
+</head>
+<body>
+<div class="x-body">
+
+    <div style="text-align:center">
+        <ul id="permissionTree" class="ztree"></ul>
+    </div>
+    <hr/>
+    <div>
+        <button class="layui-btn layui-btn-fluid" type="button" style="display:block;margin:0 auto" th:onclick="'javascript:onCheck(\''+${roleId}+'\')'">配置</button>
+    </div>
+</div>
+<script th:inline="javascript">
+    var setting = {
+        check: {
+            chkboxType:{
+                "Y" : "p", "N" : "s"
+            },
+            enable: true
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pid",
+                rootPId: "0"
+            }
+        }
+    };
+
+    $(document).ready(function(){
+        var roleList = [[${systemPermissionList}]];
+        console.log(roleList);
+        $.fn.zTree.init($("#permissionTree"), setting, roleList);
+    });
+
+    function onCheck(roleId) {
+        var treeObj = $.fn.zTree.getZTreeObj("permissionTree"),
+            nodes = treeObj.getCheckedNodes(true),
+            v = "";
+
+        for (var i = 0; i < nodes.length; i++) {
+            v += nodes[i].id + ",";
+        }
+        layer.confirm('是否确定修改权限', function(index){
+            $.ajax({
+                url: "/system/role/role-setupPermission.json",
+                data:{
+                    ids:v,
+                    roleId:roleId
+                },
+                method:"POST",
+                success: function(result){
+                    if (result.status) {
+                        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                        layer.msg("操作成功");
+                        parent.layer.close(index);  // 关闭layer
+                        window.parent.location.reload(); //刷新父页面
+                    } else {
+                        layer.msg(result.msg);
+                    }
+                }});
+        });
+    }
+</script>
+</body>
+
+</html>

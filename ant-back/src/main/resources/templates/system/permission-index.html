@@ -1,0 +1,96 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="shortcut icon" th:href="@{../../favicon.ico}" type="image/x-icon" />
+    <link rel="stylesheet" th:href="@{../../assets/css/font.css}">
+    <link rel="stylesheet" th:href="@{../../assets/css/xadmin.css}">
+    <link rel="stylesheet" th:href="@{../../assets/lib/toast/css/toast.style.css}">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{../../assets/lib/layui/layui.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{../../assets/js/xadmin.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{../../assets/lib/toast/js/toast.script.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{../../assets/lib/date/dateformat.js}" charset="utf-8"></script>
+
+    <link rel="stylesheet" th:href="@{../../assets/lib/treetable/stylesheets/jquery.treetable.css}" />
+    <script type="text/javascript" th:src="@{../../assets/lib/treetable/javascripts/src/jquery.treetable.js}"></script>
+    <title>管理员-X-admin2.0</title>
+</head>
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="javascript:void(0)">系统管理</a>
+        <a>
+          <cite>权限</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新"></a>
+</div>
+<div class="x-body">
+    <table class="layui-table" id="treeTable">
+        <thead>
+            <tr>
+                <th>层级</th>
+                <th>编码</th>
+                <th>图标</th>
+                <th>名称</th>
+                <th>排序</th>
+                <th>访问路径</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="systemPermission : ${systemPermissionList}">
+                <th:block th:if="${systemPermission.pid eq '0'}">
+                    <tr th:data-tt-id="${systemPermission.id}" style="color: red">
+                        <td> <i class="iconfont">&#xe6a6;</i> 菜单</td>
+                </th:block>
+                <th:block th:if="${systemPermission.pid ne '0'}">
+                    <tr th:data-tt-id="${systemPermission.id}" th:data-tt-parent-id="${systemPermission.pid}" style="color: #0000FF">
+                        <td> <i class="iconfont">&#xe6a7;</i> 页面</td>
+                </th:block>
+
+                    <td th:text="${systemPermission.isCode}">编码</td>
+                    <td><i class="iconfont"><th:block th:utext="${systemPermission.icon}"></th:block></i></td>
+                    <td th:text="${systemPermission.name}">名称</td>
+                    <td th:text="${systemPermission.sort}">排序</td>
+                    <td th:text="${systemPermission.address}">访问路径</td>
+                    <td>
+                        <th:block th:if="${systemPermission.state eq 'Y'}">
+                            <span class="layui-bg-green"> 启用 </span>
+                        </th:block>
+
+                        <th:block th:if="${systemPermission.state eq 'N'}">
+                            <span class="layui-bg-red"> 禁用 </span>
+                        </th:block>
+                    </td>
+                    <td align="center">
+                        <th:block th:if="${systemPermission.state eq 'Y'}">
+                            &nbsp;&nbsp;<a th:title="禁用"><i class="iconfont">&#xe69a;</i></a>
+                        </th:block>
+
+                        <th:block th:if="${systemPermission.state eq 'N'}">
+                            &nbsp;&nbsp;<a th:title="启用"><i class="iconfont">&#xe6ad;</i></a>
+                        </th:block>
+                    </td>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+</div>
+<script>
+    $(function  () {
+        $("#treeTable").treetable({
+            indent: 20,
+            expandable: true,
+            isPadding:true,
+            clickableNodeNames:true
+        });
+
+    })
+</script>
+</body>
+</html>

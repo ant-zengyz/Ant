@@ -1,0 +1,107 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="shortcut icon" th:href="@{../../favicon.ico}" type="image/x-icon" />
+    <link rel="stylesheet" th:href="@{../../assets/css/font.css}">
+    <link rel="stylesheet" th:href="@{../../assets/css/xadmin.css}">
+    <link rel="stylesheet" th:href="@{../../assets/lib/toast/css/toast.style.css}">
+    <link rel="stylesheet" th:href="@{../../assets/lib/layui/css/layui.css}">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{../../assets/lib/layui/layui.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{../../assets/js/xadmin.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{../../assets/lib/toast/js/toast.script.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{../../assets/lib/date/dateformat.js}" charset="utf-8"></script>
+    <title>管理员-X-admin2.0</title>
+
+</head>
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="javascript:void(0)">系统管理</a>
+        <a>
+          <cite>参数</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+
+    </a>
+</div>
+<div class="x-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so reloadTable">
+            <input class="layui-input" placeholder="KEY值" type="text" name="key" id="key">
+            <input class="layui-btn" data-type="reload" type="button" value="查询">
+        </form>
+    </div>
+    <table class="layui-table" lay-data="{height:600, even: true,url:'/system/params/params-list.json', page:true, id:'systemParamsTable'}" lay-filter="systemParamsTable">
+        <thead>
+        <tr>
+            <th lay-data="{fixed: 'left', width:80,align:'center', templet: '#indexTemplet'}">序号</th>
+            <th lay-data="{field:'name'}">名称</th>
+            <th lay-data="{field:'key'}">KEY值</th>
+            <th lay-data="{field:'value',edit:'text'}">VALUE值</th>
+            <th lay-data="{field:'remark', width:300}">说明</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<script type="text/html" id="indexTemplet">
+    {{d.LAY_TABLE_INDEX+1}}
+</script>
+<script>
+    layui.use(['laydate','table'], function(){
+
+        $ = layui.jquery;
+        var laydate = layui.laydate,table = layui.table;
+
+
+        $('.reloadTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        //重载表格
+        var $ = layui.$, active = {
+            reload: function(){
+                var key = $('#key').val();
+                //执行重载
+                table.reload('systemParamsTable', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        key:key
+                    }
+                });
+            }
+        };
+
+        //单元格编辑
+        table.on('edit(systemParamsTable)', function(obj){
+            var value = obj.value,data = obj.data,field = obj.field; //得到字段
+            layer.confirm("是否修改名称为：【"+data.name+"】的数据 </br> 更改VALUE值为：【"+value+"】", function(index){
+                $.ajax({ 
+                    url: "/system/params/params-update.json",
+                    type:"POST",
+                    data :data,
+                    success: function(result){
+                        if (result.status) {
+                            layer.msg("操作成功");
+                        }else{
+                            layer.msg("操作失败");
+                        }
+                    },
+                    error: function () {
+                        layer.msg("修改错误，请联系开发人员进行排查");
+                    }
+                });
+            });
+        });
+    });
+</script>
+</body>
+
+</html>
