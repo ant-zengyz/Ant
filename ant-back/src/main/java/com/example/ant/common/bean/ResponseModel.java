@@ -1,15 +1,18 @@
 package com.example.ant.common.bean;
 
+import com.alibaba.fastjson.JSON;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
- * 描述：通用返回值
+ * 描述：统一返回值处理
  * User: 曾远征
  * Date: 2018-09-01
  * Time: 21:06
  */
 @Data
-public class ResponseModel {
+public class ResponseModel implements Serializable {
 
 
     private boolean status;
@@ -35,8 +38,12 @@ public class ResponseModel {
         return new ResponseModel(true, msg, null);
     }
 
+    public static ResponseModel success(Object data) {
+        return new ResponseModel(true, null, JSON.toJSONString(data));
+    }
+
     public static ResponseModel success(String msg, Object data) {
-        return new ResponseModel(true, msg, data);
+        return new ResponseModel(true, msg, JSON.toJSONString(data));
     }
 
     public ResponseModel(boolean status, String msg, Object data) {

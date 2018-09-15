@@ -1,10 +1,8 @@
 package com.example.ant.data.system.model;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.example.ant.data.system.entity.SystemRole;
 import com.example.ant.data.system.entity.SystemUser;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;

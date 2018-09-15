@@ -21,7 +21,6 @@
         <module>ant-eureka</module>
         <module>ant-data</module>
         <module>ant-back</module>
-        <module>ant-core</module>
     </modules>
 
     <properties>
