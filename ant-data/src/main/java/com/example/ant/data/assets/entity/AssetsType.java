@@ -1,4 +1,4 @@
-package com.example.ant.data.assets;
+package com.example.ant.data.assets.entity;
 
 import lombok.Data;
 

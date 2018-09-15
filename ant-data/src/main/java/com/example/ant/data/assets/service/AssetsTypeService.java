@@ -1,8 +1,6 @@
 package com.example.ant.data.assets.service;
 
-import com.example.ant.common.bean.ResponseModel;
 import com.example.ant.data.assets.dao.AssetsTypeMapper;
-import com.example.ant.data.assets.entity.AssetsType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
