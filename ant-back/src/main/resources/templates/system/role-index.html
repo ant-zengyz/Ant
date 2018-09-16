@@ -117,7 +117,7 @@
                                 layer.msg("操作成功");
                                 document.getElementById("reloadBtn").click();
                             }else{
-                                layer.msg("操作失败");
+                                layer.msg(result.msg);
                             }
                         },
                         error: function () {
@@ -136,7 +136,7 @@
                                 layer.msg("操作成功");
                                 document.getElementById("reloadBtn").click();
                             }else{
-                                layer.msg("操作失败");
+                                layer.msg(result.msg);
                             }
                         },
                         error: function () {
