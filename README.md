@@ -9,7 +9,7 @@
 ## 项目结构：
  - Ant[项目]
 	 - ant-back[后台服务]
-	 - ant-core[核心包]
+	 - ant-core[核心包，已经删除了]
 	 - ant-data[数据服务]
 	 - ant-eureka[服务注册中心]
 	 - pom.xml[主POM文件]
@@ -36,5 +36,6 @@
 	 - 多数据源
 
 TIPS:慢慢完善中
+    后台运行 nohup java -jar test.jar &
 
 
