@@ -70,7 +70,7 @@ public class SystemUserService {
      * @param systemUser
      * @return
      */
-    public ResponseModel updateSystemUserByID(SystemUser systemUser){
+    public ResponseModel updateSystemUserByID(SystemUser systemUser) throws Exception{
         int count = systemUserMapper.updateByPrimaryKey(systemUser);
         if (count==1){
             return ResponseModel.success();
@@ -84,8 +84,15 @@ public class SystemUserService {
      * @param id
      * @return
      */
-    public ResponseModel deleteSystemUserByID(String id){
+    public ResponseModel deleteSystemUserByID(String id) throws Exception{
+        //查询是否是管理员
+        SystemUser systemUser = systemUserMapper.selectByPrimaryKey(id);
+        if (systemUser.getAccount().equals("admin")){
+            return ResponseModel.error("admin用户不能删除");
+        }
         int count = systemUserMapper.deleteByPrimaryKey(id);
+        //删除完用户，将用户依赖的角色也删除
+        int deleteCount = systemUserMapper.deleteUserRole(id);
         if (count==1){
             return ResponseModel.success();
         }else{
@@ -98,7 +105,7 @@ public class SystemUserService {
      * @param systemUser
      * @return
      */
-    public ResponseModel createSystemUser(SystemUser systemUser){
+    public ResponseModel createSystemUser(SystemUser systemUser) throws Exception{
         int count = systemUserMapper.insert(systemUser);
         if (count==1){
             return ResponseModel.success();
@@ -113,7 +120,7 @@ public class SystemUserService {
      * @param roleIds
      * @return
      */
-    public ResponseModel setupUserRole(String userId,String roleIds){
+    public ResponseModel setupUserRole(String userId,String roleIds) throws Exception {
         String[] roleIdSplit = roleIds.split(",");
         systemUserMapper.deleteUserRole(userId);
         Map params=new HashMap();

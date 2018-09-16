@@ -79,7 +79,11 @@ public class SystemRoleController {
     @PostMapping("/updateSystemRoleByID.json")
     public ResponseModel updateSystemRoleByID(@RequestParam("params") String params){
         SystemRole systemRole = JSON.parseObject(params, SystemRole.class);
-        return systemRoleService.updateSystemRoleByID(systemRole);
+        try {
+            return systemRoleService.updateSystemRoleByID(systemRole);
+        } catch (Exception e) {
+            return ResponseModel.error("数据服务层异常，请联系开发人员");
+        }
     }
 
     /**
@@ -90,7 +94,11 @@ public class SystemRoleController {
     @PostMapping("/createSystemRole.json")
     ResponseModel createSystemRole(@RequestParam("params") String params){
         SystemRole systemRole = JSON.parseObject(params, SystemRole.class);
-        return systemRoleService.createSystemRole(systemRole);
+        try {
+            return systemRoleService.createSystemRole(systemRole);
+        } catch (Exception e) {
+            return ResponseModel.error("数据服务层异常，请联系开发人员");
+        }
     }
 
     /**
@@ -100,7 +108,11 @@ public class SystemRoleController {
      */
     @PostMapping("/deleteSystemRoleByID.json")
     ResponseModel deleteSystemRoleByID(@RequestParam("params") String params){
-        return systemRoleService.deleteSystemRoleByID(params);
+        try {
+            return systemRoleService.deleteSystemRoleByID(params);
+        } catch (Exception e) {
+            return ResponseModel.error("数据服务层异常，请联系开发人员");
+        }
     }
 
     /**
@@ -121,6 +133,10 @@ public class SystemRoleController {
      */
     @PostMapping("/setupRolePermission.json")
     public ResponseModel setupRolePermission(@RequestParam("roleId") String roleId,@RequestParam("permissionIds") String permissionIds ){
-        return systemRoleService.setupRolePermission(roleId,permissionIds);
+        try {
+            return systemRoleService.setupRolePermission(roleId,permissionIds);
+        } catch (Exception e) {
+            return ResponseModel.error("数据服务层异常，请联系开发人员");
+        }
     }
 }

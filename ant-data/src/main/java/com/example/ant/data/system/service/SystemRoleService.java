@@ -69,7 +69,7 @@ public class SystemRoleService {
      * @param systemRole
      * @return
      */
-    public ResponseModel updateSystemRoleByID(SystemRole systemRole){
+    public ResponseModel updateSystemRoleByID(SystemRole systemRole) throws Exception{
         int count = systemRoleMapper.updateByPrimaryKey(systemRole);
         if (count==1){
             return ResponseModel.success();
@@ -84,7 +84,7 @@ public class SystemRoleService {
      * @param systemRole
      * @return
      */
-    public ResponseModel createSystemRole(SystemRole systemRole){
+    public ResponseModel createSystemRole(SystemRole systemRole) throws Exception{
         int count = systemRoleMapper.insert(systemRole);
         if (count==1){
             return ResponseModel.success();
@@ -99,8 +99,16 @@ public class SystemRoleService {
      * @param id
      * @return
      */
-    public ResponseModel deleteSystemRoleByID(String id){
+    public ResponseModel deleteSystemRoleByID(String id) throws Exception{
+        //检查是否为admin用户
+        SystemRole systemRole = systemRoleMapper.selectByPrimaryKey(id);
+        if (systemRole.getName().equals("ADMIN")){
+            return ResponseModel.error("超级管理员角色不能删除");
+        }
+
+        //删除角色下依赖的权限
         int count = systemRoleMapper.deleteByPrimaryKey(id);
+        int deleteCount = systemRoleMapper.deleteRolePermission(id);
         if (count==1){
             return ResponseModel.success();
         }else{
@@ -108,7 +116,7 @@ public class SystemRoleService {
         }
     }
 
-    public ResponseModel setupRolePermission(String roleId,String permissionIds){
+    public ResponseModel setupRolePermission(String roleId,String permissionIds) throws Exception{
         systemRoleMapper.deleteRolePermission(roleId);
         if (StringUtils.isNotEmpty(permissionIds)){
             String[] permissionId=permissionIds.substring(0,permissionIds.length()-1).split(",");

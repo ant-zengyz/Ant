@@ -88,7 +88,11 @@ public class SystemUserController {
     @PostMapping("/updateSystemUserByID.json")
     public ResponseModel updateSystemUserByID(@RequestParam("params") String params){
         SystemUser systemUser = JSON.parseObject(params, SystemUser.class);
-        return systemUserService.updateSystemUserByID(systemUser);
+        try {
+            return systemUserService.updateSystemUserByID(systemUser);
+        } catch (Exception e) {
+            return ResponseModel.error("数据服务层异常，请联系开发人员");
+        }
     }
 
     /**
@@ -98,7 +102,11 @@ public class SystemUserController {
      */
     @PostMapping("/deleteSystemUserByID.json")
     public ResponseModel deleteSystemUserByID(@RequestParam("params") String params){
-        return systemUserService.deleteSystemUserByID(params);
+        try {
+            return systemUserService.deleteSystemUserByID(params);
+        } catch (Exception e) {
+            return ResponseModel.error("数据服务层异常，请联系开发人员");
+        }
     }
 
     /**
@@ -109,7 +117,11 @@ public class SystemUserController {
     @PostMapping("/createSystemUser.json")
     public ResponseModel createSystemUser(@RequestParam("params") String params){
         SystemUser systemUser = JSON.parseObject(params, SystemUser.class);
-        return systemUserService.createSystemUser(systemUser);
+        try {
+            return systemUserService.createSystemUser(systemUser);
+        } catch (Exception e) {
+            return ResponseModel.error("数据服务层异常，请联系开发人员");
+        }
     }
 
     /**
@@ -120,7 +132,11 @@ public class SystemUserController {
      */
     @PostMapping("/setupUserRole.json")
     ResponseModel setupUserRole(@RequestParam("userId") String userId,@RequestParam("roleIds") String roleIds ){
-        return systemUserService.setupUserRole(userId,roleIds);
+        try {
+            return systemUserService.setupUserRole(userId,roleIds);
+        } catch (Exception e) {
+            return ResponseModel.error("数据服务层异常，请联系开发人员");
+        }
     }
 
 }
