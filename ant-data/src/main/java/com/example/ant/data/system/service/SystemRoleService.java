@@ -102,7 +102,7 @@ public class SystemRoleService {
     public ResponseModel deleteSystemRoleByID(String id) throws Exception{
         //检查是否为admin用户
         SystemRole systemRole = systemRoleMapper.selectByPrimaryKey(id);
-        if (systemRole.getName().equals("ADMIN")){
+        if (systemRole.getIsCode().equals("ADMIN")){
             return ResponseModel.error("超级管理员角色不能删除");
         }
 
