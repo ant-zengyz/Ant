@@ -1,6 +1,7 @@
 package com.example.ant.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.example.ant.annotation.ControllerLog;
 import com.example.ant.common.bean.ResponseLayuiTableModel;
 import com.example.ant.common.bean.ResponseModel;
 import com.example.ant.data.system.entity.SystemParams;
@@ -34,6 +35,7 @@ public class SystemParamsController {
      *
      * @return
      */
+    @ControllerLog(description = "参数配置列表页")
     @GetMapping("/params-index.html")
     public String systemParamsIndex() {
         return "system/params-index";
@@ -46,6 +48,7 @@ public class SystemParamsController {
      * @param key
      * @return
      */
+    @ControllerLog(description = "获取参数列表数据")
     @ResponseBody
     @GetMapping("/params-list.json")
     public ResponseLayuiTableModel systemParamsList(Integer limit, Integer page,String key) {
@@ -61,6 +64,7 @@ public class SystemParamsController {
      * @param systemParams
      * @return
      */
+    @ControllerLog(description = "修改参数")
     @ResponseBody
     @PostMapping("/params-update.json")
     public ResponseModel systemParamsUpdate(SystemParams systemParams) {

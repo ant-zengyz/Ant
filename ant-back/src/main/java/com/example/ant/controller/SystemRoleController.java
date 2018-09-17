@@ -1,6 +1,7 @@
 package com.example.ant.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.example.ant.annotation.ControllerLog;
 import com.example.ant.common.bean.ResponseLayuiTableModel;
 import com.example.ant.common.bean.ResponseModel;
 import com.example.ant.common.tools.UUIDTools;
@@ -47,6 +48,7 @@ public class SystemRoleController {
      *
      * @return
      */
+    @ControllerLog(description = "角色配置列表页")
     @GetMapping("/role-index.html")
     public String systemRoleIndex() {
         return "system/role-index";
@@ -59,6 +61,7 @@ public class SystemRoleController {
      * @param isCode
      * @return
      */
+    @ControllerLog(description = "角色配置列表数据")
     @ResponseBody
     @GetMapping("/role-list.json")
     public ResponseLayuiTableModel systemRoleList(Integer limit, Integer page, String isCode) {
@@ -74,6 +77,7 @@ public class SystemRoleController {
      * @param id
      * @return
      */
+    @ControllerLog(description = "修改角色状态")
     @ResponseBody
     @PostMapping("/role-updateState.json")
     public ResponseModel ststemUserUpdateState(String id) {
@@ -99,6 +103,7 @@ public class SystemRoleController {
      * 创建角色
      * @return
      */
+    @ControllerLog(description = "创建新角色页面")
     @GetMapping("/role-create.html")
     public String systemUserCreate() {
         return "system/role-add";
@@ -109,6 +114,7 @@ public class SystemRoleController {
      * @param systemRole
      * @return
      */
+    @ControllerLog(description = "创建新角色提交")
     @ResponseBody
     @PostMapping("/role-create.json")
     public ResponseModel systemRoleCreateSub(SystemRole systemRole) {
@@ -127,6 +133,7 @@ public class SystemRoleController {
      * @param id
      * @return
      */
+    @ControllerLog(description = "删除角色")
     @ResponseBody
     @PostMapping("/role-delete.json")
     public ResponseModel ststemRoleDelete(String id) {
@@ -134,6 +141,7 @@ public class SystemRoleController {
         return responseModel;
     }
 
+    @ControllerLog(description = "角色配置权限页")
     @GetMapping("/role-setupPermission.html")
     public String systemRoleSetupPermission(Model model, String roleId) {
         List<SystemRolePermissionModel> systemRolePermissionModels=new ArrayList<>();
@@ -160,6 +168,7 @@ public class SystemRoleController {
        return "system/role-setup";
     }
 
+    @ControllerLog(description = "角色配置权限提交")
     @ResponseBody
     @PostMapping("/role-setupPermission.json")
     public ResponseModel systemRoleSetupPermission(String roleId,String ids) {

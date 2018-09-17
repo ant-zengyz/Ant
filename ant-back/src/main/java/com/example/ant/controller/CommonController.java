@@ -1,6 +1,7 @@
 package com.example.ant.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.example.ant.annotation.ControllerLog;
 import com.example.ant.common.bean.ResponseModel;
 import com.example.ant.configuration.redis.RedisManager;
 import com.example.ant.context.SessionContext;
@@ -42,6 +43,7 @@ public class CommonController {
      * @param model
      * @return
      */
+    @ControllerLog(description = "首页")
     @GetMapping({"/","/index.html"})
     public String index(HttpServletRequest request, Model model){
         List<SystemPermissionModel> systemPermissionModels=new ArrayList<>();
@@ -65,6 +67,7 @@ public class CommonController {
      * 图标页
      * @return
      */
+    @ControllerLog(description = "图标模板页面")
     @GetMapping("/system/unicode.html")
     public String unicode(){
         return "system/unicode";
@@ -79,6 +82,7 @@ public class CommonController {
         return "welcome";
     }
 
+    @ControllerLog(description = "退出登陆")
     @GetMapping("/signout.html")
     public String signout(HttpServletRequest request, HttpServletResponse response){
         Subject subject = SecurityUtils.getSubject();

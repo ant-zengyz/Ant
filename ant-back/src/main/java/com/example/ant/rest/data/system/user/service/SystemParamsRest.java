@@ -1,5 +1,6 @@
 package com.example.ant.rest.data.system.user.service;
 
+import com.example.ant.annotation.RestLog;
 import com.example.ant.common.bean.ResponseLayuiTableModel;
 import com.example.ant.common.bean.ResponseModel;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -23,6 +24,7 @@ public interface SystemParamsRest {
      * @param params
      * @return
      */
+    @RestLog(description = "参数-查询分页数据")
     @RequestMapping(method = RequestMethod.GET,value = "/system/params/findSystemParamsListByParams.json")
     ResponseLayuiTableModel findSystemParamsListByParams(@RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum") Integer pageNum, @RequestParam("params") String params );
 
@@ -31,6 +33,7 @@ public interface SystemParamsRest {
      * @param params
      * @return
      */
+    @RestLog(description = "参数-修改参数")
     @RequestMapping(method = RequestMethod.POST,value = "/system/params/updateSystemParamsByID.json")
     ResponseModel updateSystemParams(@RequestParam("params") String params);
 
@@ -39,6 +42,7 @@ public interface SystemParamsRest {
      * @param params
      * @return
      */
+    @RestLog(description = "参数-根据KEY进行查询")
     @RequestMapping(method = RequestMethod.GET,value = "/system/params/findSystemParamsByKEY.json")
     ResponseModel findSystemParamsByKEY(@RequestParam("params") String params );
 

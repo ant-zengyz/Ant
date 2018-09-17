@@ -1,6 +1,7 @@
 package com.example.ant.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.example.ant.annotation.ControllerLog;
 import com.example.ant.common.bean.ResponseLayuiTableModel;
 import com.example.ant.common.bean.ResponseModel;
 import com.example.ant.data.system.entity.SystemPermission;
@@ -35,6 +36,7 @@ public class SystemPermissionController {
      *
      * @return
      */
+    @ControllerLog(description = "权限配置列表页")
     @GetMapping("/permission-index.html")
     public String systemPermissionIndex(Model model) {
         ResponseModel responseModel = systemPermissionRest.findSystemPermissionListNotPage();

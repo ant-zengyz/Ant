@@ -1,6 +1,7 @@
 package com.example.ant.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.example.ant.annotation.ControllerLog;
 import com.example.ant.common.bean.ResponseLayuiTableModel;
 import com.example.ant.common.bean.ResponseModel;
 import com.example.ant.common.tools.UUIDTools;
@@ -51,11 +52,13 @@ public class SystemUserController {
      *
      * @return
      */
+    @ControllerLog(description = "管理员列表页")
     @GetMapping("/user-index.html")
     public String systemUserIndex() {
         return "system/user-index";
     }
 
+    @ControllerLog(description = "管理员列表页数据")
     @ResponseBody
     @GetMapping("/user-list.json")
     public ResponseLayuiTableModel systemUserList(Integer limit, Integer page, String startDate, String endDate, String account) {
@@ -74,6 +77,7 @@ public class SystemUserController {
      * 创建管理员
      * @return
      */
+    @ControllerLog(description = "创建管理员页面")
     @GetMapping("/user-create.html")
     public String systemUserCreate() {
         return "system/user-add";
@@ -84,6 +88,7 @@ public class SystemUserController {
      * @param systemUser
      * @return
      */
+    @ControllerLog(description = "创建管理员提交")
     @ResponseBody
     @PostMapping("/user-create.json")
     public ResponseModel systemUserCreateSub(SystemUser systemUser) {
@@ -103,6 +108,7 @@ public class SystemUserController {
      * @param id
      * @return
      */
+    @ControllerLog(description = "管理员重置密码")
     @ResponseBody
     @PostMapping("/user-recPassword.json")
     public ResponseModel ststemUserRecPassword(String id) {
@@ -135,6 +141,7 @@ public class SystemUserController {
      * @param id
      * @return
      */
+    @ControllerLog(description = "修改管理员状态")
     @ResponseBody
     @PostMapping("/user-updateState.json")
     public ResponseModel ststemUserUpdateState(String id) {
@@ -161,6 +168,7 @@ public class SystemUserController {
      * @param id
      * @return
      */
+    @ControllerLog(description = "删除管理员")
     @ResponseBody
     @PostMapping("/user-delete.json")
     public ResponseModel ststemUserDelete(String id) {
@@ -174,6 +182,7 @@ public class SystemUserController {
      * @param roleIds
      * @return
      */
+    @ControllerLog(description = "管理员配置角色提交")
     @ResponseBody
     @PostMapping("/user-setupRole.json")
     public ResponseModel systemUserSetupRole(String userId,String roleIds) {
@@ -186,6 +195,7 @@ public class SystemUserController {
      * @param account
      * @return
      */
+    @ControllerLog(description = "管理员配置角色页")
     @GetMapping("/user-setupRole.html")
     public String systemUserSetupRole(Model model,String account) {
         ResponseModel responseModelSystemUser = systemUserRest.findSystemUserModelByAccount(account);
