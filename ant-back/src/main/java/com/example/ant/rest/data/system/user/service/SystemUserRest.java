@@ -1,11 +1,11 @@
 package com.example.ant.rest.data.system.user.service;
 
-import com.example.ant.annotation.RestLog;
 import com.example.ant.common.bean.ResponseLayuiTableModel;
 import com.example.ant.common.bean.ResponseModel;
-import com.example.ant.rest.RestContext;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 描述：调用SYSTEM数据中心
@@ -21,7 +21,6 @@ public interface SystemUserRest {
      * @param account
      * @return
      */
-    @RestLog(description = "管理员-根据账号查询用户-关联角色")
     @RequestMapping(method = RequestMethod.GET,value = "/system/user/findSystemUserModelByAccount.json")
     ResponseModel findSystemUserModelByAccount(@RequestParam("account") String account);
 
@@ -32,7 +31,6 @@ public interface SystemUserRest {
      * @param params
      * @return
      */
-    @RestLog(description = "管理员-查询分页数据")
     @RequestMapping(method = RequestMethod.GET,value = "/system/user/findSystemUserModelListByParams.json")
     ResponseLayuiTableModel findSystemUserModelListByParams(@RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum") Integer pageNum, @RequestParam("params") String params );
 
@@ -41,7 +39,6 @@ public interface SystemUserRest {
      * @param id
      * @return
      */
-    @RestLog(description = "管理员-根据ID进行查询")
     @RequestMapping(method = RequestMethod.GET,value = "/system/user/findSystemUserByID.json")
     ResponseModel findSystemUserByID(@RequestParam("id") String id);
 
@@ -50,7 +47,6 @@ public interface SystemUserRest {
      * @param params
      * @return
      */
-    @RestLog(description = "管理员-修改数据")
     @RequestMapping(method = RequestMethod.POST,value = "/system/user/updateSystemUserByID.json")
     ResponseModel updateSystemUserByID(@RequestParam("params") String params);
 
@@ -59,7 +55,6 @@ public interface SystemUserRest {
      * @param params
      * @return
      */
-    @RestLog(description = "管理员-删除数据")
     @RequestMapping(method = RequestMethod.POST,value = "/system/user/deleteSystemUserByID.json")
     ResponseModel deleteSystemUserByID(@RequestParam("params") String params);
 
@@ -68,7 +63,6 @@ public interface SystemUserRest {
      * @param params
      * @return
      */
-    @RestLog(description = "管理员-添加数据")
     @RequestMapping(method = RequestMethod.POST,value = "/system/user/createSystemUser.json")
     ResponseModel createSystemUser(@RequestParam("params") String params);
 
@@ -78,7 +72,6 @@ public interface SystemUserRest {
      * @param roleIds
      * @return
      */
-    @RestLog(description = "管理员-配置角色")
     @RequestMapping(method = RequestMethod.POST,value = "/system/user/setupUserRole.json")
     ResponseModel setupUserRole(@RequestParam("userId") String userId,@RequestParam("roleIds") String roleIds );
 }

@@ -1,11 +1,11 @@
 package com.example.ant.rest.data.system.user.service;
 
-import com.example.ant.annotation.RestLog;
 import com.example.ant.common.bean.ResponseLayuiTableModel;
 import com.example.ant.common.bean.ResponseModel;
-import com.example.ant.rest.RestContext;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 描述：调用SYSTEM数据中心
@@ -23,7 +23,6 @@ public interface SystemRoleRest {
      * @param params
      * @return
      */
-    @RestLog(description = "角色-查询分页数据")
     @RequestMapping(method = RequestMethod.GET,value = "/system/role/findSystemRoleListByParams.json")
     ResponseLayuiTableModel findSystemRoleListByParams(@RequestParam("pageSize") Integer pageSize, @RequestParam("pageNum") Integer pageNum, @RequestParam("params") String params);
 
@@ -31,7 +30,6 @@ public interface SystemRoleRest {
      * 查询全部角色
      * @return
      */
-    @RestLog(description = "角色-查询全部角色")
     @RequestMapping(method = RequestMethod.GET,value = "/system/role/findSystemRoleList.json")
     ResponseModel findSystemRoleList();
 
@@ -40,7 +38,6 @@ public interface SystemRoleRest {
      * @param id
      * @return
      */
-    @RestLog(description = "角色-根据ID查询角色")
     @RequestMapping(method = RequestMethod.GET,value = "/system/role/findSystemRoleByID.json")
     ResponseModel findSystemRoleByID(@RequestParam("id") String id);
 
@@ -49,7 +46,6 @@ public interface SystemRoleRest {
      * @param params
      * @return
      */
-    @RestLog(description = "角色-修改角色")
     @RequestMapping(method = RequestMethod.POST,value = "/system/role/updateSystemRoleByID.json")
     ResponseModel updateSystemRoleByID(@RequestParam("params") String params);
 
@@ -58,7 +54,6 @@ public interface SystemRoleRest {
      * @param params
      * @return
      */
-    @RestLog(description = "角色-添加角色")
     @RequestMapping(method = RequestMethod.POST,value = "/system/role/createSystemRole.json")
     ResponseModel createSystemRole(@RequestParam("params") String params);
 
@@ -67,7 +62,6 @@ public interface SystemRoleRest {
      * @param params
      * @return
      */
-    @RestLog(description = "角色-删除角色")
     @RequestMapping(method = RequestMethod.POST,value = "/system/role/deleteSystemRoleByID.json")
     ResponseModel deleteSystemRoleByID(@RequestParam("params") String params);
 
@@ -77,7 +71,6 @@ public interface SystemRoleRest {
      * @param permissionIds
      * @return
      */
-    @RestLog(description = "角色-配置权限")
     @RequestMapping(method = RequestMethod.POST,value = "/system/role/setupRolePermission.json")
     ResponseModel setupRolePermission(@RequestParam("roleId") String roleId,@RequestParam("permissionIds") String permissionIds );
 }
